@@ -4,6 +4,9 @@ Food-delivery homepage built from the shared Figma, rendered from the supplied
 fixture pack. No backend. Images load from the URLs in the fixtures, so the app
 needs a network connection.
 
+## Deployed link for web
+https://ownly-assignment-dhrumi-hzk1p4307-dhrumishahs-projects.vercel.app/
+
 ## Run
 
 ```bash
