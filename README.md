@@ -7,6 +7,9 @@ needs a network connection.
 ## Deployed link for web
 https://ownly-assignment-dhrumi-hzk1p4307-dhrumishahs-projects.vercel.app/
 
+## Screen Recording
+https://drive.google.com/file/d/19tX8cIDjJQZ9WmGL4qce5TF3Aeyi4per/view?usp=sharing
+
 ## Run
 
 ```bash
