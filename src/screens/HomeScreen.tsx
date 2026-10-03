@@ -30,6 +30,7 @@ import { SectionHeader } from "../components/primitives";
 import { NoResults } from "../components/states";
 import { DEFAULT_FILTERS, applyFilters, type Filters } from "../filters";
 import { colors, layout, radii, shadow, spacing, type } from "../theme";
+import { useResponsiveLayout } from "../responsive";
 import type { HomeFeed } from "../hooks/useHomeFeed";
 
 /** Anchors start off-screen so nothing pins before the first layout pass. */
@@ -42,6 +43,7 @@ const OVERSCROLL = 400;
 
 export function HomeScreen({ feed }: { feed: HomeFeed }) {
   const insets = useSafeAreaInsets();
+  const { cardWidth } = useResponsiveLayout();
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
 
   const scrollRef = useRef<Animated.ScrollView>(null);
@@ -173,7 +175,9 @@ export function HomeScreen({ feed }: { feed: HomeFeed }) {
         {visibleRestaurants.length ? (
           <View style={styles.list}>
             {visibleRestaurants.map((item) => (
-              <RestaurantCard key={item.entityId} item={item} />
+              <View key={item.entityId} style={{ width: cardWidth }}>
+                <RestaurantCard item={item} />
+              </View>
             ))}
           </View>
         ) : (
@@ -239,7 +243,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.brandHeader,
   },
 
-  list: { gap: spacing.lg },
+  list: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: spacing.lg,
+    paddingHorizontal: layout.screenPadding,
+  },
 
   safeFiller: {
     position: "absolute",

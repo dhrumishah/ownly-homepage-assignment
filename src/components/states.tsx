@@ -11,6 +11,7 @@ import { Tappable } from "./Tappable";
 import { Skeleton } from "./primitives";
 import { colors, layout, radii, spacing, type } from "../theme";
 import type { Serviceability } from "../types";
+import { useResponsiveLayout } from "../responsive";
 
 /** Enough placeholders to cover the viewport, plus one peeking off the edge. */
 const fillCount = (width: number, item: number) =>
@@ -19,6 +20,7 @@ const fillCount = (width: number, item: number) =>
 /** Mirrors the homepage layout so the swap to real content doesn't jump. */
 export function HomeSkeleton() {
   const { width } = useWindowDimensions();
+  const { columns, cardWidth } = useResponsiveLayout();
 
   return (
     <ScrollView
@@ -50,13 +52,15 @@ export function HomeSkeleton() {
       </View>
 
       <Skeleton style={styles.heading} />
-      {[0, 1].map((i) => (
-        <View key={i} style={styles.listItem}>
-          <Skeleton style={styles.listImage} />
-          <Skeleton style={styles.lineWide} />
-          <Skeleton style={styles.lineNarrow} />
-        </View>
-      ))}
+      <View style={styles.list}>
+        {Array.from({ length: Math.max(columns, 2) }, (_, i) => (
+          <View key={i} style={[styles.listItem, { width: cardWidth }]}>
+            <Skeleton style={styles.listImage} />
+            <Skeleton style={styles.lineWide} />
+            <Skeleton style={styles.lineNarrow} />
+          </View>
+        ))}
+      </View>
     </ScrollView>
   );
 }
@@ -169,11 +173,14 @@ const styles = StyleSheet.create({
     height: layout.cuisineItem,
     borderRadius: radii.sm,
   },
-  listItem: {
+  list: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    columnGap: spacing.lg,
+    rowGap: spacing.xl,
     paddingHorizontal: layout.screenPadding,
-    gap: spacing.sm,
-    marginBottom: spacing.xl,
   },
+  listItem: { gap: spacing.sm },
   listImage: {
     width: "100%",
     aspectRatio: layout.listCardImageAspect,

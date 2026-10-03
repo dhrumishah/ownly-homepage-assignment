@@ -89,6 +89,9 @@ export const layout = {
   screenPadding: 16,
 
   bannerHeight: 173,
+  /** Wide screens: banner stops growing here and the artwork is letterboxed. */
+  bannerMaxHeight: 280,
+  bannerArtAspect: 2.02,
   appBarHeight: 62,
   searchHeight: 42,
 
@@ -100,6 +103,10 @@ export const layout = {
 
   cuisineRowHeight: 100,
   filterBarHeight: 54,
+
+  maxContentWidth: 1200,
+  twoColumnsAt: 640,
+  threeColumnsAt: 1000,
 } as const;
 
 export const shadow = {

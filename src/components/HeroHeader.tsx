@@ -16,10 +16,13 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Tappable } from "./Tappable";
 import { colors, gradients, layout, radii, spacing, type } from "../theme";
+import { useResponsiveLayout } from "../responsive";
 import type { Banner } from "../types";
 
 const TOGGLE = { width: 108, height: 42, knob: 77, inset: 1 };
 const VEG_SWITCH = { width: 32, height: 16, knob: 12 };
+/** Figma frame: 390 x 173. */
+const BANNER_FRAME_ASPECT = 390 / 173;
 
 function LocationBar({ area, line2 }: { area: string; line2: string }) {
   return (
@@ -128,7 +131,13 @@ export function HeroHeader({
   addressLine: string;
 }) {
   const insets = useSafeAreaInsets();
+  const { contentWidth } = useResponsiveLayout();
   const banner = banners[0];
+  const bannerHeight = Math.min(
+    Math.max(contentWidth / BANNER_FRAME_ASPECT, layout.bannerHeight),
+    layout.bannerMaxHeight,
+  );
+  const letterbox = bannerHeight === layout.bannerMaxHeight;
 
   return (
     <View>
@@ -155,12 +164,19 @@ export function HeroHeader({
       {!!banner && (
         <LinearGradient
           colors={[...gradients.banner]}
-          style={styles.banner}
+          style={[styles.banner, { height: bannerHeight }]}
           accessibilityLabel={banner.name}
         >
           <Image
             source={banner.imageUrl}
-            style={styles.bannerImage}
+            style={
+              letterbox
+                ? [
+                    styles.bannerImage,
+                    { width: bannerHeight * layout.bannerArtAspect },
+                  ]
+                : styles.bannerImage
+            }
             contentFit="cover"
             // Artwork is 2.02:1 in a 2.25:1 frame — crop from the bottom, as Figma does.
             contentPosition="top center"
@@ -271,7 +287,7 @@ const styles = StyleSheet.create({
   stateRight: { right: 10 },
 
   banner: {
-    height: layout.bannerHeight,
+    alignItems: "center",
     borderBottomLeftRadius: radii.hero,
     borderBottomRightRadius: radii.hero,
     overflow: "hidden",

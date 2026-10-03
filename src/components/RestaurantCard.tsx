@@ -100,7 +100,6 @@ export function RestaurantCard({ item }: { item: RestaurantEntity }) {
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: layout.screenPadding,
     padding: spacing.md,
     gap: spacing.md,
     backgroundColor: colors.surface,

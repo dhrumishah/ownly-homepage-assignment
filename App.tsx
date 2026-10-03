@@ -16,7 +16,7 @@ import {
   HomeSkeleton,
   NotServiceable,
 } from "./src/components/states";
-import { colors } from "./src/theme";
+import { colors, layout } from "./src/theme";
 
 function Root() {
   const { state, reload } = useHomeFeed();
@@ -53,7 +53,9 @@ export default function App() {
         <StatusBar style="dark" />
         {/* Hold the splash-coloured shell until Figtree is ready, so no frame
             renders in the system font. */}
-        {fontsLoaded ? <Root /> : <View style={styles.root} />}
+        <View style={styles.frame}>
+          {fontsLoaded ? <Root /> : <View style={styles.root} />}
+        </View>
       </View>
     </SafeAreaProvider>
   );
@@ -61,4 +63,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
+  frame: {
+    flex: 1,
+    width: "100%",
+    maxWidth: layout.maxContentWidth,
+    alignSelf: "center",
+  },
 });
