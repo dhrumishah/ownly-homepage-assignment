@@ -23,16 +23,14 @@ Set `FORCE_NOT_SERVICEABLE = true` in `src/api/mockApi.ts` to see the blocked st
 
 ## Assumptions
 
--  ⁠*Section order follows the Figma*, not the brief's numbered steps — the two
-  disagree on where the cuisine row goes, and fidelity is the first criterion.
-- ⁠*Both curated rails resolve to the same fixture*, so ⁠ mockApi ⁠ slices it by rank
-  to avoid two identical rows.
-- ⁠*The fixture calls are given a fake delay totalling ~700 ms across the three sequential load stages* (⁠ mockApi.ts ⁠), otherwise the
-  loading states resolve instantly and can't be seen.
-- ⁠*"Under 30 mins" matches nothing* — the fastest restaurant is 31 mins. The filter
-  is correct; it exercises the empty state. Sort, Rating 4+ and Under ₹200 all filter
-- *Controls the data can't drive* — the Veg chip, header VEG toggle, price-mode
-  switch and search field are in the Figma, so they render and respond to touch, but
-  nothing in the fixtures backs them. They hold their state and filter nothing.
-- ⁠*The header address is the Figma's placeholder copy* — every ⁠ address ⁠ in the
-  fixtures belongs to a restaurant, not to a user.
+- **Section order follows the Figma**, not the brief's numbered steps.
+- **Both curated rails share one fixture**, so `mockApi` splits it by rank to avoid
+    duplicate rows.
+- **Controls without backing data** (Veg chip, VEG toggle, price-mode switch, search)
+    render and hold state but filter nothing.
+- **Fake latency in `mockApi.ts`** keeps the loading state visible. The flow is
+    sequential (gate → config → rest), adding ~700 ms before content appears.
+- **"Under 30 mins" matches nothing** - the fastest restaurant is 31 mins, so it shows
+    the empty state. Sort, Rating 4+ and Under ₹200 filter the live list.
+- **The header address is Figma placeholder copy** - fixture addresses belong to
+    restaurants, not the user.
