@@ -5,7 +5,7 @@ fixture pack. No backend. Images load from the URLs in the fixtures, so the app
 needs a network connection.
 
 ## Deployed link for web
-[Deployed link](https://ownly-assignment-dhrumi-fwwd77v3m-dhrumishahs-projects.vercel.app/)
+[Deployed link](https://ownly-assignment-dhrumi.vercel.app/)
 
 ## Screen Recording
 [Drive](https://drive.google.com/file/d/1HgBUzStphxtArQJs0ohvytEJDCKcPrsY/view?usp=sharing)
@@ -14,7 +14,7 @@ needs a network connection.
 
 ```bash
 npm install
-npm start          # scan the QR with Expo Go
+npm start          # scan the QR code with Expo Go
 ```
 
 `npm run ios` / `npm run android` for simulators, `npm run web` for the browser.
