@@ -27,7 +27,7 @@ Set `FORCE_NOT_SERVICEABLE = true` in `src/api/mockApi.ts` to see the blocked st
   disagree on where the cuisine row goes, and fidelity is the first criterion.
 - ⁠*Both curated rails resolve to the same fixture*, so ⁠ mockApi ⁠ slices it by rank
   to avoid two identical rows.
-- ⁠*The fixture calls are given a fake 650 ms delay* (⁠ mockApi.ts ⁠), otherwise the
+- ⁠*The fixture calls are given a fake delay totalling ~700 ms across the three sequential load stages* (⁠ mockApi.ts ⁠), otherwise the
   loading states resolve instantly and can't be seen.
 - ⁠*"Under 30 mins" matches nothing* — the fastest restaurant is 31 mins. The filter
   is correct; it exercises the empty state. Sort, Rating 4+ and Under ₹200 all filter

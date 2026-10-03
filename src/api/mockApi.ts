@@ -14,8 +14,12 @@ import type {
 /** Flip to `true` to exercise the non-serviceable screen (fixture: `not_serviceable`). */
 export const FORCE_NOT_SERVICEABLE = false;
 
-/** Fake network latency so loading states are actually visible. */
-const LATENCY_MS = 650;
+/**
+ * Fake network latency so loading states are actually visible. The load runs in
+ * three sequential stages (serviceability -> feed config -> parallel batch), so
+ * 200 + 250 + 250 = 700 ms end to end.
+ */
+const LATENCY_MS = 250;
 
 const respond = <T>(data: T, ms = LATENCY_MS): Promise<T> =>
   new Promise((resolve) => setTimeout(() => resolve(data), ms));
@@ -25,7 +29,7 @@ export const checkServiceability = (): Promise<Serviceability> =>
   respond(
     (FORCE_NOT_SERVICEABLE ? fixtures.not_serviceable : fixtures.serviceability)
       .data as Serviceability,
-    400,
+    200,
   );
 
 /** GET /feed-configs/current-feed-config */
